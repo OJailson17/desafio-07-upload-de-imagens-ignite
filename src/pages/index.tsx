@@ -55,7 +55,7 @@ export default function Home(): JSX.Element {
     // FLAT DATA ARRAY
     const pages = data?.pages
       .map(group => {
-        const pageData = group?.data.map((page: Card) => {
+        const pageData = group?.data?.map((page: Card) => {
           return {
             title: page?.title,
             description: page?.description,
@@ -67,7 +67,6 @@ export default function Home(): JSX.Element {
         return pageData;
       })
       .flat();
-
     return pages;
   }, [data]);
 
@@ -87,13 +86,15 @@ export default function Home(): JSX.Element {
 
       <Box maxW={1120} px={20} mx="auto" my={20}>
         <CardList cards={formattedData} />
-        <Button mt={10} disabled={!hasNextPage} onClick={() => fetchNextPage()}>
-          {isFetchingNextPage ? (
-            <Text>Carregando...</Text>
-          ) : (
-            <Text>Carregar mais</Text>
-          )}
-        </Button>
+        {hasNextPage && (
+          <Button mt={10} onClick={() => fetchNextPage()}>
+            {isFetchingNextPage ? (
+              <Text>Carregando...</Text>
+            ) : (
+              <Text>Carregar mais</Text>
+            )}
+          </Button>
+        )}
       </Box>
     </>
   );
