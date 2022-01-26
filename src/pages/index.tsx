@@ -52,7 +52,7 @@ export default function Home(): JSX.Element {
   });
 
   const formattedData = useMemo(() => {
-    // TODO FORMAT AND FLAT DATA ARRAY
+    // FLAT DATA ARRAY
     const pages = data?.pages
       .map(group => {
         const pageData = group?.data.map((page: Card) => {
@@ -71,12 +71,12 @@ export default function Home(): JSX.Element {
     return pages;
   }, [data]);
 
-  // TODO RENDER LOADING SCREEN
+  // RENDER LOADING SCREEN
   if (isLoading) {
     return <Loading />;
   }
 
-  // TODO RENDER ERROR SCREEN
+  // RENDER ERROR SCREEN
   if (isError) {
     return <Error />;
   }

@@ -24,7 +24,7 @@ export function ModalViewImage({
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
       <ModalOverlay>
-        <ModalContent bg="pGray.900">
+        <ModalContent>
           <ModalBody p="0">
             <Image src={imgUrl} w="100%" />
           </ModalBody>
