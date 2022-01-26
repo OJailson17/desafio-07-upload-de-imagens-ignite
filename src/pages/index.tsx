@@ -1,4 +1,4 @@
-import { Button, Box } from '@chakra-ui/react';
+import { Button, Box, Text } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import { useInfiniteQuery } from 'react-query';
 
@@ -25,11 +25,9 @@ const fetchImages = async ({ pageParam = 0 }): Promise<FetchImagesProps> => {
   try {
     const response = await api.get(`/api/images?after=${pageParam}`);
 
-    // console.log(response);
-
     return response.data;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 
   return null;
@@ -44,7 +42,7 @@ export default function Home(): JSX.Element {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery('images', fetchImages, {
-    getNextPageParam: (lastPage, _pages) => {
+    getNextPageParam: lastPage => {
       if (lastPage?.after) {
         return lastPage?.after;
       }
@@ -52,8 +50,6 @@ export default function Home(): JSX.Element {
       return null;
     },
   });
-
-  console.log(hasNextPage);
 
   const formattedData = useMemo(() => {
     // TODO FORMAT AND FLAT DATA ARRAY
@@ -76,8 +72,14 @@ export default function Home(): JSX.Element {
   }, [data]);
 
   // TODO RENDER LOADING SCREEN
+  if (isLoading) {
+    return <Loading />;
+  }
 
   // TODO RENDER ERROR SCREEN
+  if (isError) {
+    return <Error />;
+  }
 
   return (
     <>
@@ -85,10 +87,13 @@ export default function Home(): JSX.Element {
 
       <Box maxW={1120} px={20} mx="auto" my={20}>
         <CardList cards={formattedData} />
-        {/* TODO RENDER LOAD MORE BUTTON IF DATA HAS NEXT PAGE */}
-        {/* <button type="button" onClick={fetchNextPage}>
-          Fetch
-        </button> */}
+        <Button mt={10} disabled={!hasNextPage} onClick={() => fetchNextPage()}>
+          {isFetchingNextPage ? (
+            <Text>Carregando...</Text>
+          ) : (
+            <Text>Carregar mais</Text>
+          )}
+        </Button>
       </Box>
     </>
   );
