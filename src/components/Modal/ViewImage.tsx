@@ -31,7 +31,7 @@ export function ModalViewImage({
 
           <ModalFooter justifyContent="space-between" bg="pGray.800" h="32px">
             <Link href={imgUrl} target="_blank" fontSize="14">
-              Carregar original
+              Abrir original
             </Link>
           </ModalFooter>
         </ModalContent>
