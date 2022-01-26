@@ -17,7 +17,7 @@ interface Card {
 
 interface CardProps {
   data: Card;
-  viewImage: (url: string) => void;
+  viewImage?: (url: string) => void;
 }
 
 export function Card({ data, viewImage }: CardProps): JSX.Element {
