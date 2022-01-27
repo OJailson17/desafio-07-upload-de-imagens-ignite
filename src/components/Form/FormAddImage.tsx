@@ -36,14 +36,8 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
     }
   );
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState,
-    setError,
-    trigger,
-  } = useForm();
+  const { register, handleSubmit, reset, formState, setError, trigger } =
+    useForm();
   const { errors } = formState;
 
   const onSubmit = async (data: Record<string, unknown>): Promise<void> => {
@@ -67,20 +61,48 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
           setLocalImageUrl={setLocalImageUrl}
           setError={setError}
           trigger={trigger}
-          // TODO SEND IMAGE ERRORS
-          // TODO REGISTER IMAGE INPUT WITH VALIDATIONS
+          name="image"
+          {...register('image', {
+            required: 'Arquivo obrigatório',
+            validate: {
+              lessThanTen: file =>
+                file[0]?.size < 10485760 /* 10MB em formato de bytes */ ||
+                'O arquivo deve ser menor que 10MB',
+              acceptedFormats: file =>
+                /\/(gif|jpg|jpeg|png)$/i.test(file[0]?.type) ||
+                'Somente são aceitos arquivos PNG, JPEG e GIF',
+            },
+          })}
         />
 
         <TextInput
           placeholder="Título da imagem..."
-          // TODO SEND TITLE ERRORS
+          name="title"
+          // error={errors}
           // TODO REGISTER TITLE INPUT WITH VALIDATIONS
+          {...register('title', {
+            required: 'Título obrigatório',
+            minLength: {
+              value: 2,
+              message: 'Mínimo de 2 caracteres',
+            },
+            maxLength: {
+              value: 20,
+              message: 'Máximo de 20 caracteres',
+            },
+          })}
         />
 
         <TextInput
           placeholder="Descrição da imagem..."
-          // TODO SEND DESCRIPTION ERRORS
-          // TODO REGISTER DESCRIPTION INPUT WITH VALIDATIONS
+          name="description"
+          {...register('description', {
+            required: 'Descrição obrigatória',
+            maxLength: {
+              value: 65,
+              message: 'Máximo de 65 caracteres',
+            },
+          })}
         />
       </Stack>
 
