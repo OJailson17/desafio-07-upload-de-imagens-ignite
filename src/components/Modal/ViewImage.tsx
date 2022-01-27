@@ -26,7 +26,7 @@ export function ModalViewImage({
       <ModalOverlay>
         <ModalContent>
           <ModalBody p="0">
-            <Image src={imgUrl} w="100%" />
+            <Image src={imgUrl} w="100%" maxWidth="900px" maxHeight="600px" />
           </ModalBody>
 
           <ModalFooter justifyContent="space-between" bg="pGray.800" h="32px">
