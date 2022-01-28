@@ -22,7 +22,7 @@ interface FetchImagesProps {
 }
 
 const fetchImages = async ({ pageParam = 0 }): Promise<FetchImagesProps> => {
-  const response = await api.get(`/api/images`);
+  const response = await api.get(`/api/images?after=${pageParam}`);
   return response.data;
 };
 
