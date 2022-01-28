@@ -22,15 +22,8 @@ interface FetchImagesProps {
 }
 
 const fetchImages = async ({ pageParam = 0 }): Promise<FetchImagesProps> => {
-  try {
-    const response = await api.get(`/api/images?after=${pageParam}`);
-
-    return response.data;
-  } catch (error) {
-    return error;
-  }
-
-  return null;
+  const response = await api.get(`/api/images`);
+  return response.data;
 };
 
 export default function Home(): JSX.Element {
