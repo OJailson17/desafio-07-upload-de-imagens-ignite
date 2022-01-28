@@ -25,7 +25,7 @@ export function ModalViewImage({
     <Modal onClose={onClose} isOpen={isOpen} isCentered size="xl">
       <ModalOverlay>
         <ModalContent>
-          <ModalBody p="0" bg="red">
+          <ModalBody p="0">
             <Image src={imgUrl} maxWidth="900px" maxHeight="600px" w="100%" />
           </ModalBody>
 
